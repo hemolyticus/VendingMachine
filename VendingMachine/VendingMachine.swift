@@ -41,3 +41,49 @@ protocol VendingMachine
     func deposit (_ amount: Double)
 }
 
+struct Item: VendingItem
+{
+    let price:Double
+    var quantity: Int
+
+}
+
+class FoodVending: VendingMachine
+{
+    let selection: [VendingSelection] = [.soda, .dietSoda, .chips, .cookie, .sandwich, .candyBar, .popTart, .water, .fruitJuice, .sportsDrink, .gum, .wrap]
+    
+    var inventory: [VendingSelection : VendingItem]
+    
+    var amountDeposited: Double = 10.0
+    
+    required init(inventory: [VendingSelection : VendingItem]) {
+            self.inventory = inventory
+    }
+    
+    func vend(_ quantity: Int, _ selection: VendingSelection) throws {
+        //
+    }
+    
+    func deposit(_ amount: Double) {
+        //
+    }
+    
+    
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
