@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import UIKit
 
-enum VendingSelection
+enum VendingSelection: String
 {
     case soda
     case dietSoda
@@ -22,6 +23,18 @@ enum VendingSelection
     case fruitJuice
     case sportsDrink
     case gum
+    
+    func icon() -> UIImage
+    {
+        if let image = UIImage(named: self.rawValue)
+        {
+            return image
+        }else
+        {
+            return #imageLiteral(resourceName: "default")
+        }
+        
+    }
 }
 
 protocol VendingItem
@@ -47,6 +60,57 @@ struct Item: VendingItem
     var quantity: Int
 
 }
+
+enum InventoryError: Error
+{
+    case invalidResource
+    case conversionFailure
+    case invalidSelection
+}
+
+class PlistConverter
+{
+    static func dictionary (fromFile name: String, ofType type: String) throws -> [String: AnyObject]
+    {
+        guard let path = Bundle.main.path(forResource: name, ofType: type) else
+        {
+            
+            throw InventoryError.invalidResource
+        }
+        
+        guard let dictionary = NSDictionary(contentsOfFile: path)  as? [String: AnyObject] else
+        {
+            throw InventoryError.conversionFailure
+        }
+        
+        return dictionary
+    }
+}
+
+class InventoryUnarchiver
+{
+    static func vendingInventory(fromDictionary dictionary: [String: AnyObject]) throws -> [VendingSelection: VendingItem]
+    {
+        var inventory : [VendingSelection: VendingItem] = [:]
+        
+        for (key, value) in dictionary
+        {
+            if let itemDictionary = value as? [String: Any], let price = itemDictionary["price"] as? Double, let quantity = itemDictionary["quantity"] as? Int{
+                let item = Item(price: price, quantity: quantity)
+                guard let selection = VendingSelection(rawValue: key) else
+                {
+                    throw InventoryError.invalidSelection
+                }
+                
+                inventory.updateValue(item, forKey: selection)
+            }
+        }
+        
+        return inventory
+    }
+}
+
+    
 
 class FoodVending: VendingMachine
 {
