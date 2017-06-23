@@ -102,7 +102,7 @@
 				TargetAttributes = {
 					9771F6B01DF0833300B2B06D = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = R9E84DX62H;
+						DevelopmentTeam = 783M699BN9;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -267,10 +267,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = R9E84DX62H;
+				DEVELOPMENT_TEAM = 783M699BN9;
 				INFOPLIST_FILE = VendingMachine/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.teamtreehouse.VendingMachine;
+				PRODUCT_BUNDLE_IDENTIFIER = "ru.meljdelbarrio-yahoo.com";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -280,10 +280,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = R9E84DX62H;
+				DEVELOPMENT_TEAM = 783M699BN9;
 				INFOPLIST_FILE = VendingMachine/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.teamtreehouse.VendingMachine;
+				PRODUCT_BUNDLE_IDENTIFIER = "ru.meljdelbarrio-yahoo.com";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
