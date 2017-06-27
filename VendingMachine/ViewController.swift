@@ -23,7 +23,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     let vendingMachine: VendingMachine
     var currentSelection: VendingSelection?
-    var quantity = 1
+ 
     
     required init?(coder aDecoder: NSCoder) {
         do {
@@ -93,12 +93,16 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     func updateTotalPrice(for item: VendingItem)
     {
-        totalLabel.text = "$ \(item.price * Double(quantity)) "
+        totalLabel.text = "$ \(item.price * Double(quantityStepper.value)) "
     }
     
     @IBAction func updateQuantity(_ sender: UIStepper) {
-        quantity = Int(sender.value)
-        quantityLabel.text = "\(quantity)"
+        
+        quantityLabel.text = "\(Int(quantityStepper.value))"
+        if let  currentSelection = currentSelection, let item = vendingMachine.item(forSelection: currentSelection)
+        {
+            updateTotalPrice(for: item)
+        }
         
     }
     
@@ -108,7 +112,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         if let currentSelection = currentSelection
         {
             do {
-                try vendingMachine.vend(selection: currentSelection, quantity: quantity)
+                try vendingMachine.vend(selection: currentSelection, quantity: Int(quantityStepper.value))
                 updateDisplay()
             }
             
@@ -135,6 +139,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         quantityStepper.value = 1
         quantityLabel.text = "1"
         currentSelection  = vendingMachine.selection[indexPath.row]
+        totalLabel.text = "$ 0.00"
         
         if let currentSelection = currentSelection,
             let item = vendingMachine.item(forSelection: currentSelection)
@@ -142,7 +147,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             
             
             priceLabel.text = "$ \(item.price)"
-            totalLabel.text = "$ \(item.price * Double(quantity))"
+            totalLabel.text = "$ \(item.price * Double(quantityStepper.value))"
         }
     }
     
