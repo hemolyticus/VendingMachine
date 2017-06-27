@@ -41,6 +41,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         setupCollectionViewCells()
         balanceLabel.text = "$ \(vendingMachine.amountDeposited)"
         totalLabel.text = "$ 0.00"
+        priceLabel.text = "$ 0.00"
     }
 
     override func didReceiveMemoryWarning() {
@@ -79,6 +80,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         cell.iconView.image = item.icon()
         return cell
     }
+    
+    func updateDisplay()
+    {
+        balanceLabel.text = "$ \(vendingMachine.amountDeposited)"
+        totalLabel.text = "$ 0.00"
+        priceLabel.text = "$ 0.00"
+    }
     // MARK: - Vending Machine
     
     @IBAction func purchase(_ sender: Any) {
@@ -86,6 +94,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         {
             do {
                 try vendingMachine.vend(selection: currentSelection, quantity: quantity)
+                updateDisplay()
             } catch  {
                 // FIXME: Error Handling Code
             }
