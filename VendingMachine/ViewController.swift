@@ -21,6 +21,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     let vendingMachine: VendingMachine
     var currentSelection: VendingSelection?
+    var quantity = 1
     
     required init?(coder aDecoder: NSCoder) {
         do {
@@ -76,6 +77,22 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let item = vendingMachine.selection[indexPath.row]
         cell.iconView.image = item.icon()
         return cell
+    }
+    // MARK: - Vending Machine
+    
+    @IBAction func purchase(_ sender: Any) {
+        if let currentSelection = currentSelection
+        {
+            do {
+                try vendingMachine.vend(selection: currentSelection, quantity: quantity)
+            } catch  {
+                // FIXME: Error Handling Code
+            }
+        }else
+        {
+            // FIXME: Alert User
+        }
+        
     }
     
     // MARK: - UICollectionViewDelegate

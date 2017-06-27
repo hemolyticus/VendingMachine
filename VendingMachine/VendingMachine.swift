@@ -49,7 +49,7 @@ protocol VendingMachine
     var amountDeposited: Double {get set}
     init(inventory:[VendingSelection:VendingItem])
     
-    func vend(_ quantity: Int, _ selection: VendingSelection) throws
+    func vend(selection: VendingSelection, quantity: Int) throws
     
     func deposit (_ amount: Double)
 }
@@ -129,7 +129,7 @@ class FoodVending: VendingMachine
             self.inventory = inventory
     }
     
-    func vend(_ quantity: Int, _ selection: VendingSelection) throws {
+    func vend(selection: VendingSelection, quantity: Int) throws {
         guard var item = inventory[selection] else
         {
             throw VendingMachineError.invalidSelection
