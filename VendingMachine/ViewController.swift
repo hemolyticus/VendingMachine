@@ -19,6 +19,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBOutlet weak var quantityLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     
+    @IBOutlet weak var quantityStepper: UIStepper!
+    
     let vendingMachine: VendingMachine
     var currentSelection: VendingSelection?
     var quantity = 1
@@ -42,6 +44,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         balanceLabel.text = "$ \(vendingMachine.amountDeposited)"
         totalLabel.text = "$ 0.00"
         priceLabel.text = "$ 0.00"
+        quantityLabel.text = "1"
     }
 
     override func didReceiveMemoryWarning() {
@@ -87,6 +90,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         totalLabel.text = "$ 0.00"
         priceLabel.text = "$ 0.00"
     }
+    
+    func updateTotalPrice(for item: VendingItem)
+    {
+        totalLabel.text = "$ \(item.price * Double(quantity)) "
+    }
+    
+    @IBAction func updateQuantity(_ sender: UIStepper) {
+        quantity = Int(sender.value)
+        quantityLabel.text = "\(quantity)"
+        
+    }
+    
     // MARK: - Vending Machine
     
     @IBAction func purchase(_ sender: Any) {
@@ -95,8 +110,16 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             do {
                 try vendingMachine.vend(selection: currentSelection, quantity: quantity)
                 updateDisplay()
-            } catch  {
+            }
+            
+            catch  {
                 // FIXME: Error Handling Code
+            }
+            
+            if let indexPath = collectionView.indexPathsForSelectedItems?.first
+            {
+                collectionView.deselectItem(at: indexPath, animated: true)
+                updateCell(having: indexPath, selected: false)
             }
         }else
         {
@@ -109,6 +132,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         updateCell(having: indexPath, selected: true)
+        quantityStepper.value = 1
+        quantityLabel.text = "1"
         currentSelection  = vendingMachine.selection[indexPath.row]
         
         if let currentSelection = currentSelection,
