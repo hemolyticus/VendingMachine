@@ -19,14 +19,15 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBOutlet weak var quantityLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     
-    let VendingMachine: VendingMachine
+    let vendingMachine: VendingMachine
+    var currentSelection: VendingSelection?
     
     required init?(coder aDecoder: NSCoder) {
         do {
             let dictionary =  try PlistConverter.dictionary(fromFile: "VendingInventory", ofType: "plist")
             
             let inventory =  try InventoryUnarchiver.vendingInventory(fromDictionary: dictionary)
-            self.VendingMachine = FoodVending(inventory: inventory)
+            self.vendingMachine = FoodVending(inventory: inventory)
         } catch let error {
             fatalError("\(error)")
         }
@@ -37,7 +38,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         setupCollectionViewCells()
-        print(VendingMachine.inventory)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,13 +66,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     // MARK: UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return VendingMachine.selection.count
+        return vendingMachine.selection.count
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? VendingItemCell else { fatalError() }
         
-        let item = VendingMachine.selection[indexPath.row]
+        let item = vendingMachine.selection[indexPath.row]
         cell.iconView.image = item.icon()
         return cell
     }
@@ -80,6 +82,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         updateCell(having: indexPath, selected: true)
+        currentSelection  = vendingMachine.selection[indexPath.row]
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
