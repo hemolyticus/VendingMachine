@@ -84,20 +84,37 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         return cell
     }
     
-    func updateDisplay()
+    func updateDisplayWith(balance: Double? = nil, totalPrice: Double? = nil, itemPrice: Double? = nil, itemQuantity: Int? = nil)
     {
-        balanceLabel.text = "$ \(vendingMachine.amountDeposited)"
-        totalLabel.text = "$ 0.00"
-        priceLabel.text = "$ 0.00"
+        if let balanceValue = balance
+        {
+            balanceLabel.text = "$ \(balanceValue)"
+        }
+        if let totalValue = totalPrice{
+            totalLabel.text = "$ \(totalValue)"
+        }
+        
+        if let  priceValue = itemPrice
+        {
+            priceLabel.text = "$ \(priceValue)"
+        }
+        if let quantityValue = itemQuantity
+        {
+            quantityLabel.text = "\(quantityValue)"
+        }
+        
+     
+        
     }
     
     func updateTotalPrice(for item: VendingItem)
     {
-        totalLabel.text = "$ \(item.price * Double(quantityStepper.value)) "
+        
+        updateDisplayWith(totalPrice: item.price * Double(quantityStepper.value)
     }
     
     @IBAction func updateQuantity(_ sender: UIStepper) {
-        
+        let quantity = Int(quantityStepper.value  )
         quantityLabel.text = "\(Int(quantityStepper.value))"
         if let  currentSelection = currentSelection, let item = vendingMachine.item(forSelection: currentSelection)
         {
@@ -113,7 +130,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         {
             do {
                 try vendingMachine.vend(selection: currentSelection, quantity: Int(quantityStepper.value))
-                updateDisplay()
+                updateDisplayWith(balance: vendingMachine.amountDeposited, totalPrice: 0.0, itemPrice: 0, itemQuantity: 1)
             }
             
             catch  {
@@ -147,7 +164,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             
             
             priceLabel.text = "$ \(item.price)"
-            totalLabel.text = "$ \(item.price * Double(quantityStepper.value))"
+            totalLabel.text = "$ \(item.price * Double(quantityStepper.value                                ))"
         }
     }
     
@@ -172,6 +189,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             cell.contentView.backgroundColor = selected ? selectedBackgroundColor : defaultBackgroundColor
         }
     }
+    
+    
     
     
 }
