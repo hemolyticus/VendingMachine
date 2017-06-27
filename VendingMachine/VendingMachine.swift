@@ -111,7 +111,12 @@ class InventoryUnarchiver
 }
 
     
-
+enum VendingMachineError: Error
+{
+    case invalidSelection
+    case outOfStock
+    case insufficientFunds(required: Double)
+}
 class FoodVending: VendingMachine
 {
     let selection: [VendingSelection] = [.soda, .dietSoda, .chips, .cookie, .sandwich, .candyBar, .popTart, .water, .fruitJuice, .sportsDrink, .gum, .wrap]
@@ -125,7 +130,27 @@ class FoodVending: VendingMachine
     }
     
     func vend(_ quantity: Int, _ selection: VendingSelection) throws {
-        //
+        guard var item = inventory[selection] else
+        {
+            throw VendingMachineError.invalidSelection
+        }
+        
+        guard item.quantity >= quantity else
+        {
+            throw VendingMachineError.outOfStock
+        }
+        
+        let totalPrice = item.price * Double(quantity)
+        if amountDeposited >= totalPrice
+        {
+            amountDeposited -= totalPrice
+            item.quantity -= quantity
+            inventory.updateValue(item, forKey: selection)
+        }else
+        {
+            let amountRequired = totalPrice - amountDeposited
+            throw VendingMachineError.insufficientFunds(required: amountRequired)
+        }
     }
     
     func deposit(_ amount: Double) {
