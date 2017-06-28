@@ -71,9 +71,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         collectionView.collectionViewLayout = layout
     }
     
-    func showAlert()
+    func showAlert(title: String, message: String, style: UIAlertControllerStyle = .alert)
     {
-        let alertController = UIAlertController(title: "Out of Stock", message: "This item is unavailable. Please select another selction", preferredStyle: .alert)
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: style)
         let OkAction = UIAlertAction(title: "OK", style: .default, handler: dismissAlert)
         
         alertController.addAction(OkAction)
@@ -149,11 +149,20 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             }
             
             catch VendingMachineError.outOfStock {
-                showAlert()
+                showAlert(title: "Out of Stock", message: "This item is unavailable")
             }
-            catch
+            catch VendingMachineError.invalidSelection
             {
-                
+                    showAlert(title: "Invalid Selection", message: "Please make another selection")
+            }
+            catch VendingMachineError.insufficientFunds(let required)
+            {
+                let message = "You need $\(required) to complete the transaction"
+                showAlert(title: "Insufficient Funds", message: message)
+            }
+            catch let error
+            {
+                fatalError("\(error)")
             }
             
             
