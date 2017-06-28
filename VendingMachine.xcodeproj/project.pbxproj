@@ -14,6 +14,7 @@
 		9771F6BF1DF0833300B2B06D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9771F6BD1DF0833300B2B06D /* LaunchScreen.storyboard */; };
 		9771F6C71DF0A6C000B2B06D /* VendingItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9771F6C61DF0A6C000B2B06D /* VendingItemCell.swift */; };
 		9771F6CD1DF0D68E00B2B06D /* VendingInventory.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9771F6CC1DF0D68E00B2B06D /* VendingInventory.plist */; };
+		B13383BF1F03537C00014064 /* DepositController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13383BE1F03537C00014064 /* DepositController.swift */; };
 		B15D0BEA1EFCAC2800E6885B /* VendingMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15D0BE91EFCAC2800E6885B /* VendingMachine.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 		9771F6C01DF0833300B2B06D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9771F6C61DF0A6C000B2B06D /* VendingItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VendingItemCell.swift; sourceTree = "<group>"; };
 		9771F6CC1DF0D68E00B2B06D /* VendingInventory.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = VendingInventory.plist; sourceTree = "<group>"; };
+		B13383BE1F03537C00014064 /* DepositController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepositController.swift; sourceTree = "<group>"; };
 		B15D0BE91EFCAC2800E6885B /* VendingMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VendingMachine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,6 +71,7 @@
 				9771F6BD1DF0833300B2B06D /* LaunchScreen.storyboard */,
 				9771F6C01DF0833300B2B06D /* Info.plist */,
 				9771F6CC1DF0D68E00B2B06D /* VendingInventory.plist */,
+				B13383BE1F03537C00014064 /* DepositController.swift */,
 			);
 			path = VendingMachine;
 			sourceTree = "<group>";
@@ -149,6 +152,7 @@
 			files = (
 				9771F6B71DF0833300B2B06D /* ViewController.swift in Sources */,
 				9771F6B51DF0833300B2B06D /* AppDelegate.swift in Sources */,
+				B13383BF1F03537C00014064 /* DepositController.swift in Sources */,
 				9771F6C71DF0A6C000B2B06D /* VendingItemCell.swift in Sources */,
 				B15D0BEA1EFCAC2800E6885B /* VendingMachine.swift in Sources */,
 			);

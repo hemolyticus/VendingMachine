@@ -41,10 +41,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         setupCollectionViewCells()
-        balanceLabel.text = "$ \(vendingMachine.amountDeposited)"
-        totalLabel.text = "$ 0.00"
-        priceLabel.text = "$ 0.00"
-        quantityLabel.text = "1"
+        
         
         updateDisplayWith(balance: vendingMachine.amountDeposited, totalPrice: 0, itemPrice: 0, itemQuantity: 1)
     }
@@ -82,6 +79,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     func dismissAlert(sender: UIAlertAction) -> Void {
         updateDisplayWith(balance: 0, totalPrice: 0, itemPrice: 0, itemQuantity: 1)
+    }
+    
+    
+    @IBAction func depositFunds() {
+            vendingMachine.deposit(5.0)
+            updateDisplayWith(balance: vendingMachine.amountDeposited)
     }
     
     // MARK: UICollectionViewDataSource

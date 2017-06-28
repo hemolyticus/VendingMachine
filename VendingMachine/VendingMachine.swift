@@ -154,11 +154,13 @@ class FoodVending: VendingMachine
         }
     }
     
-    func deposit(_ amount: Double) {
-        //
+    func deposit(_ amount: Double)
+    {
+        amountDeposited += amount
     }
     
-    func item(forSelection selection: VendingSelection) -> VendingItem? {
+    func item(forSelection selection: VendingSelection) -> VendingItem?
+    {
         return inventory[selection]
     }
     
