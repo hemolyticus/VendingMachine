@@ -71,6 +71,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         collectionView.collectionViewLayout = layout
     }
     
+    func showAlert()
+    {
+        let alertController = UIAlertController(title: "Out of Stock", message: "This item is unavailable. Please select another selction", preferredStyle: .alert)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
     // MARK: UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
