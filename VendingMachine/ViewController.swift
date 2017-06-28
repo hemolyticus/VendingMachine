@@ -45,6 +45,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         totalLabel.text = "$ 0.00"
         priceLabel.text = "$ 0.00"
         quantityLabel.text = "1"
+        
+        updateDisplayWith(balance: vendingMachine.amountDeposited, totalPrice: 0, itemPrice: 0, itemQuantity: 1)
     }
 
     override func didReceiveMemoryWarning() {
@@ -109,13 +111,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     func updateTotalPrice(for item: VendingItem)
     {
-        
-        updateDisplayWith(totalPrice: item.price * Double(quantityStepper.value)
+        let totalPrice = item.price * Double(quantityStepper.value)
+        updateDisplayWith(totalPrice: totalPrice)
     }
     
     @IBAction func updateQuantity(_ sender: UIStepper) {
-        let quantity = Int(quantityStepper.value  )
-        quantityLabel.text = "\(Int(quantityStepper.value))"
+        let quantity = Int(quantityStepper.value    )
+        updateDisplayWith(itemQuantity: quantity)
         if let  currentSelection = currentSelection, let item = vendingMachine.item(forSelection: currentSelection)
         {
             updateTotalPrice(for: item)
@@ -154,17 +156,19 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         updateCell(having: indexPath, selected: true)
         quantityStepper.value = 1
-        quantityLabel.text = "1"
+        updateDisplayWith(totalPrice: 0, itemQuantity: 1)
+    
         currentSelection  = vendingMachine.selection[indexPath.row]
-        totalLabel.text = "$ 0.00"
+
         
         if let currentSelection = currentSelection,
             let item = vendingMachine.item(forSelection: currentSelection)
+            
         {
+            let totalPrice = item.price * quantityStepper.value
+            updateDisplayWith( totalPrice: totalPrice, itemPrice: item.price)
             
             
-            priceLabel.text = "$ \(item.price)"
-            totalLabel.text = "$ \(item.price * Double(quantityStepper.value                                ))"
         }
     }
     
