@@ -74,8 +74,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     func showAlert()
     {
         let alertController = UIAlertController(title: "Out of Stock", message: "This item is unavailable. Please select another selction", preferredStyle: .alert)
+        let OkAction = UIAlertAction(title: "OK", style: .default, handler: dismissAlert)
         
+        alertController.addAction(OkAction)
         present(alertController, animated: true, completion: nil)
+    }
+    
+    func dismissAlert(sender: UIAlertAction) -> Void {
+        updateDisplayWith(balance: 0, totalPrice: 0, itemPrice: 0, itemQuantity: 1)
     }
     
     // MARK: UICollectionViewDataSource
@@ -142,9 +148,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 updateDisplayWith(balance: vendingMachine.amountDeposited, totalPrice: 0.0, itemPrice: 0, itemQuantity: 1)
             }
             
-            catch  {
-                // FIXME: Error Handling Code
+            catch VendingMachineError.outOfStock {
+                showAlert()
             }
+            catch
+            {
+                
+            }
+            
             
             if let indexPath = collectionView.indexPathsForSelectedItems?.first
             {
